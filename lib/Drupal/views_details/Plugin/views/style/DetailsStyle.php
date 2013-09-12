@@ -7,8 +7,8 @@
 
 namespace Drupal\views_details\Plugin\views\style;
 
-use Drupal\Component\Annotation\Plugin;
 use Drupal\Core\Annotation\Translation;
+use Drupal\views\Annotation\ViewsStyle;
 use Drupal\views\Plugin\views\style\StylePluginBase;
 
 /**
@@ -16,7 +16,7 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  *
  * @ingroup views_style_plugins
  *
- * @Plugin(
+ * @ViewsStyle(
  *   id = "details",
  *   title = @Translation("Details"),
  *   help = @Translation("Renders the full views output in details."),

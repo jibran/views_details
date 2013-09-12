@@ -1,7 +1,7 @@
 name : 'Views Details Style'
-type: module
+type : module
 description : 'Shows views rows as details'
 package : Views
 core : 8.x
-dependencies:
+dependencies :
   - views

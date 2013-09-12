@@ -79,11 +79,3 @@ function template_preprocess_views_view_details(&$variables) {
   }
 
 }
-
-/*
- * Display a views row in details.
- * @todo remove this once https://drupal.org/node/1911492 is committed.
- */
-function theme_views_view_details($variables) {
-  return drupal_render($variables['details']);
-}
