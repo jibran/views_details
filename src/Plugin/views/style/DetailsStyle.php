@@ -17,7 +17,7 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
  * @ViewsStyle(
  *   id = "details",
  *   title = @Translation("Details"),
- *   help = @Translation("Renders the full views output in details."),
+ *   help = @Translation("Displays rows as details."),
  *   theme = "views_view_details",
  *   display_types = {"normal"}
  * )

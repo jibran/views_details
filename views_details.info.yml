@@ -1,5 +1,5 @@
-name : 'Views Details Style'
-type : module
+name : 'Views Details Style Plugin'
+type: module
 description : 'Shows views rows as details'
 package : Views
 core : 8.x
