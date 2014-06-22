@@ -62,6 +62,7 @@ class DetailsStyle extends StylePluginBase {
 
     $options = parent::defineOptions();
     $options['collapsed'] = array('default' => FALSE, 'bool' => TRUE);
+    $options['open_first'] = array('default' => TRUE, 'bool' => TRUE);
     $options['title'] = array('default' => '');
     $options['description'] = array('default' => '');
 
@@ -83,6 +84,19 @@ class DetailsStyle extends StylePluginBase {
       '#weight' => -49,
     );
 
+    $form['open_first'] = array(
+      '#title' => t('Leave first fieldset open'),
+      '#type' => 'checkbox',
+      '#description' => t('Check to leave first fieldset open.'),
+      '#default_value' => $this->options['open_first'],
+      '#weight' => -48,
+      '#states' => array(
+        'invisible' => array(
+          ':input[name="style_options[collapsed]"]' => array('checked' => FALSE),
+        ),
+      ),
+    );
+
     $options = array('' => t('- None -'));
     $field_labels = $this->displayHandler->getFieldLabels(TRUE);
     $options += $field_labels;
@@ -93,7 +107,7 @@ class DetailsStyle extends StylePluginBase {
       '#options' => $options,
       '#default_value' => $this->options['title'],
       '#description' => t('Choose the title of details.'),
-      '#weight' => -48,
+      '#weight' => -47,
     );
 
     $form['description'] = array(
@@ -102,7 +116,7 @@ class DetailsStyle extends StylePluginBase {
       '#options' => $options,
       '#default_value' => $this->options['description'],
       '#description' => t('Optional details description.'),
-      '#weight' => -47,
+      '#weight' => -46,
     );
   }
 

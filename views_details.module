@@ -16,26 +16,8 @@ function template_preprocess_views_view_details(&$variables) {
 
   $default_row_class = isset($options['default_row_class']) ? $options['default_row_class'] : FALSE;
   $row_class_special = isset($options['row_class_special']) ? $options['row_class_special'] : FALSE;
-  // Set up striping values.
-  $count = 0;
-  $max = count($rows);
   foreach ($rows as $id => $row) {
-    $html_id = $view->storage->id() . '-' . $view->current_display . '-row-' . ($id + 1);
     $classes = array();
-    $count++;
-    if ($default_row_class) {
-      $classes[] = 'views-row';
-      $classes[] = 'views-row-' . $count;
-    }
-    if ($row_class_special) {
-      $classes[] = 'views-row-' . ($count % 2 ? 'odd' : 'even');
-      if ($count == 1) {
-        $classes[] = 'views-row-first';
-      }
-      if ($count == $max) {
-        $classes[] = 'views-row-last';
-      }
-    }
 
     if ($row_class = $view->style_plugin->getRowClass($id)) {
       $classes[] = $row_class;
@@ -63,15 +45,19 @@ function template_preprocess_views_view_details(&$variables) {
     $element = array(
       '#title' => $title,
       '#type' => 'details',
-      '#collapsed' => $options['collapsed'],
+      '#open' => !$options['collapsed'],
       '#children' => $row,
       '#parents' => array(),
       '#description' => $description,
       '#attributes' => array(
         'class' => $classes,
-        'id' => drupal_html_id($html_id),
       ),
     );
+    // Leave first details open if all the details are collapsed and open
+    // first is TRUE.
+    if ($id == 0 && $options['collapsed'] && $options['open_first']) {
+      $element['#open'] = TRUE;
+    }
     $form_state = array();
     $element = form_process_group($element, $form_state);
 
