@@ -5,17 +5,19 @@
  * Views details style plugin code.
  */
 
+use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Form\FormState;
+
 /**
  * Implements hook_preprocess_HOOK() for theme_views_view_details().
  */
 function template_preprocess_views_view_details(&$variables) {
+  /** @var \Drupal\views\ViewExecutable $view */
   $view = $variables['view'];
   $rows = $variables['rows'];
   $style = $view->style_plugin;
   $options = $style->options;
 
-  $default_row_class = isset($options['default_row_class']) ? $options['default_row_class'] : FALSE;
-  $row_class_special = isset($options['row_class_special']) ? $options['row_class_special'] : FALSE;
   foreach ($rows as $id => $row) {
     $classes = array();
 
@@ -58,8 +60,9 @@ function template_preprocess_views_view_details(&$variables) {
     if ($id == 0 && $options['collapsed'] && $options['open_first']) {
       $element['#open'] = TRUE;
     }
-    $form_state = array();
-    $element = form_process_group($element, $form_state);
+    $form = array();
+    $form_state = new FormState();
+    $element = RenderElement::processGroup($element, $form_state, $form);
 
     $variables['details'][] = $element;
   }
