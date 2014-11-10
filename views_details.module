@@ -18,8 +18,12 @@ function template_preprocess_views_view_details(&$variables) {
   $style = $view->style_plugin;
   $options = $style->options;
 
+  $default_row_class = isset($options['default_row_class']) ? $options['default_row_class'] : FALSE;
   foreach ($rows as $id => $row) {
     $classes = array();
+    if ($default_row_class) {
+      $classes[] = 'views-row';
+    }
 
     if ($row_class = $view->style_plugin->getRowClass($id)) {
       $classes[] = $row_class;
